@@ -256,7 +256,7 @@
 						<div class="col-lg-6 col-md-12 mt-80 no-padding">
 							<div class="info-content2">
 								<h1>Co si mám vzít na sebe?</h1>
-								<p>Na samotný obřad bychom doporučovali formální oblečení (vypadá to lépe na fotkách), ale když přijdete v džínech a košili, tak Vás také nevyhodíme.<br>Kdo by se chtěl po obřadu převléci do něčeho pohodlnějšího, nebudeme Vám v tom bránit. Pokud byste chtěli přijít vyladěni do nějaké konkrétni barvy, věztem že svatba bude ve stylu modré, ale také ovoce a zeleniny.
+								<p>Na samotný obřad bychom doporučovali formální oblečení (vypadá to lépe na fotkách), ale když přijdete v džínech a košili, tak Vás také nevyhodíme. Kdo by se chtěl po obřadu převléci do něčeho pohodlnějšího, nebudeme Vám v tom bránit.<br>Pokud byste chtěli přijít vyladěni do nějaké konkrétni barvy, věztem že svatba bude ve stylu modré, ale také ovoce a zeleniny.
 								</p>
 								<div class="meta">
 									<p>Dresscode:  Formal casual</p>
@@ -280,7 +280,7 @@
 					<div class="overlay overlay-bg"></div>
 					<div class="row headz justify-content-center">
 						<div class="col-lg-6">
-							<h1 class="text-white">Rezervační formulář</h1>
+							<h1 class="text-black">Rezervační formulář</h1>
 							<p>
 								Prosíme o potvrzení Vaší účasti a výběr preferovaného jídla a pití.
 							</p>							
@@ -291,13 +291,13 @@
 							<form class="booking-form" id="myForm" action="">
 							 	<div class="row">
 						 			<div class="col-lg-6 d-flex flex-column mb-20">
-										<input name="name" placeholder="Jméno" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Jméno'" class="form-control mt-20" required="" type="text">	
+										<input name="name" placeholder="Jméno" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Jméno'" class="form-control mt-20" required type="text">	
 									</div>
 									<div class="col-lg-6 d-flex flex-column mb-20">
-										<input name="email" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="form-control mt-20" required="" type="email">
-									</div>								 		
-							 		<div class="col-lg-12 d-flex flex-column">
-										<div class="nice-select app-select form-control " tabindex="0">
+										<input name="email" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="form-control mt-20" required= type="email">
+									</div>
+							 		<div class="col-lg-12 d-flex flex-column mb-20">
+										<div class="nice-select app-select form-control" tabindex="0">
 											<span class="current">Preference jídla</span>
 											<ul class="list">
 												<!-- <li data-value="0" data-display="Preference jídla" class="option selected">Preference jídla</li> -->
@@ -310,16 +310,30 @@
 												<li data-value="7" class="option">Virgin Paella</li>
 											</ul>
 										</div>
-							 		</div>							 		
+							 		</div>
+							 		<div class="col-lg-12 d-flex flex-column">
+										<div class="nice-select app-select form-control " tabindex="0">
+											<span class="current">Preference alkoholického pití</span>
+											<ul class="list">
+												<!-- <li data-value="0" data-display="Preference jídla" class="option selected">Preference jídla</li> -->
+												<li data-value="1" class="option">Alkohol nepiju, jsem těhotná.</li>
+												<li data-value="2" class="option">Alkohol nepiju, dělám řidiče.</li>
+												<li data-value="3" class="option">Pouze pivo, nic jiného do mě nedostanete.</li>
+												<li data-value="4" class="option">Asi pivo, ale když bude víno tak ochutnám.</li>
+												<li data-value="5" class="option">Asi víno, pivo jen k masu.</li>
+												<li data-value="6" class="option">Víno bílé, nic jiného do mě nedostanete.</li>
+												<li data-value="7" class="option">Víno červené, nic jiného do mě nedostanete.</li>
+												<li data-value="8" class="option">Hrňte to do mě všechno, je mi to fuk.</li>
+											</ul>
+										</div>
+							 		</div>								 		
 									<div class="col-lg-12 d-flex flex-column">
 										<textarea class="form-control mt-20" name="message" placeholder="Poznámky" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Poznámky'"></textarea>
 									</div>
 									
 									<div class="col-lg-12 d-flex justify-content-center send-btn">
-										<button class="submit-btn primary-btn mt-20 text-uppercase ">Potvrdit<span class="lnr lnr-arrow-right"></span></button>
-									</div>
-
-									<div class="alert-msg"></div>		
+										<button class="submit-btn primary-btn mt-20 text-uppercase">Potvrdit<span class="lnr lnr-arrow-right"></span></button>
+									</div>	
 								</div>
 						  	</form>							
 						</div>
@@ -350,8 +364,11 @@
 					</div>
 					<div class="row footer-bottom justify-content-center">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						<p class="col-lg-8 col-sm-12 footer-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+						<p class="col-lg-8 col-sm-12 footer-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This page is made from a template created with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						<br>
+						<!-- not required, but we'd appreciate it if you'd link to us somewhere on your site -->
+    					Powered by <a href="https://postmail.invotes.com" target="_blank">PostMail</a></Powered>
 					</div>
 				</div>
 			</footer>	

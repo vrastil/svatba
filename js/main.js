@@ -101,33 +101,49 @@ $(document).ready(function(){
       }
     });
 
-    // -------   Mail Send ajax
-    var form = $('#myForm'); // contact form
-    var submit = $('.submit-btn'); // submit button
-    var alert = $('.alert-msg'); // alert div for show alert message
+    // -------   Mail Send
+    //update this with your $form selector
+    var form_id = "myForm";
+    var $form = $("#" + form_id);
+    var sendButton = $('.submit-btn'); // submit button
+    var data = {
+        "access_token": "le9z6m3aagiqqwz17yqpi0vt"
+    };
 
-    // form submit event
-    form.on('submit', function(e) {
-        e.preventDefault(); // prevent default form submit
+    function onSuccess(data) {
+      $form .trigger('reset'); // reset form
+      sendButton.text('Posl√°no');
+    }
 
-        $.ajax({
-            url: 'mail.php', // form action url
-            type: 'POST', // form submit method get/post
-            dataType: 'html', // request type html/json/xml
-            data: form.serialize(), // serialize form data
-            beforeSend: function() {
-                alert.fadeOut();
-                submit.html('OdesÌl·m....'); // change submit button text
-            },
-            success: function(data) {
-                alert.html(data).fadeIn(); // fade in response data
-                form.trigger('reset'); // reset form
-                submit.attr("style", "display: none !important");; // reset submit button text
-            },
-            error: function(e) {
-                console.log(e)
-            }
-        });
+    function onError(error) {
+      console.log(error)
+    }
+
+
+    function send() {
+
+      if ($form.get(0).reportValidity()){
+        sendButton.text('Pos√≠l√°m...');
+        sendButton.prop('disabled',true);
+  
+        var subject = "[web] Potvrzeni svatby";
+        var message = $form .serialize(); // serialize form data;
+  
+        data['subject'] = subject;
+        data['text'] = message;
+  
+        $.post('https://postmail.invotes.com/send',
+            data,
+            onSuccess
+        ).fail(onError);
+      }
+
+      return false;
+    }
+
+    sendButton.on('click', send);
+    $form.submit(function( event ) {
+        event.preventDefault();
     });
 
     // ---------- Include the HTML
