@@ -117,6 +117,7 @@ $(document).ready(function(){
 
     function onError(error) {
       console.log(error)
+      sendButton.text('Nastala chyba');
     }
 
 
