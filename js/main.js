@@ -1,3 +1,13 @@
+// Initialize and add the map
+function initMap() {
+  // The location of spejchar
+  var spejchar = {lat: 50.063100, lng: 14.597043};
+  // The map, centered at spejchar
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 12, center: spejchar});
+  // The marker, positioned at spejchar
+  var marker = new google.maps.Marker({position: spejchar, map: map});
+}
 
 $(document).ready(function(){
 	"use strict";
@@ -12,8 +22,6 @@ $(document).ready(function(){
 	$(".fullscreen").css("height", window_height)
 	$(".fitscreen").css("height", fitscreen);
 
-  //-------- Active Sticky Js ----------//
-
      
   //------- Active Nice Select --------//   
   $('select').niceSelect();
@@ -27,11 +35,6 @@ $(document).ready(function(){
 
      
    // -------   Active Mobile Menu-----//
-
-
-
-
-
     $('.active-about-carousel').owlCarousel({
         items:1,
         loop:true,
@@ -98,35 +101,64 @@ $(document).ready(function(){
       }
     });
 
+    // -------   Mail Send ajax
+    var form = $('#myForm'); // contact form
+    var submit = $('.submit-btn'); // submit button
+    var alert = $('.alert-msg'); // alert div for show alert message
 
-      // -------   Mail Send ajax
-      var form = $('#myForm'); // contact form
-      var submit = $('.submit-btn'); // submit button
-      var alert = $('.alert-msg'); // alert div for show alert message
+    // form submit event
+    form.on('submit', function(e) {
+        e.preventDefault(); // prevent default form submit
 
-      // form submit event
-      form.on('submit', function(e) {
-          e.preventDefault(); // prevent default form submit
+        $.ajax({
+            url: 'mail.php', // form action url
+            type: 'POST', // form submit method get/post
+            dataType: 'html', // request type html/json/xml
+            data: form.serialize(), // serialize form data
+            beforeSend: function() {
+                alert.fadeOut();
+                submit.html('Odesílám....'); // change submit button text
+            },
+            success: function(data) {
+                alert.html(data).fadeIn(); // fade in response data
+                form.trigger('reset'); // reset form
+                submit.attr("style", "display: none !important");; // reset submit button text
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        });
+    });
 
-          $.ajax({
-              url: 'mail.php', // form action url
-              type: 'POST', // form submit method get/post
-              dataType: 'html', // request type html/json/xml
-              data: form.serialize(), // serialize form data
-              beforeSend: function() {
-                  alert.fadeOut();
-                  submit.html('Odesílám....'); // change submit button text
-              },
-              success: function(data) {
-                  alert.html(data).fadeIn(); // fade in response data
-                  form.trigger('reset'); // reset form
-                  submit.attr("style", "display: none !important");; // reset submit button text
-              },
-              error: function(e) {
-                  console.log(e)
-              }
-          });
-      });
+    // ---------- Include the HTML
+    function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /* Loop through a collection of all HTML elements: */
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          /* Make an HTTP request using the attribute value as the file name: */
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+              if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+              if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+              /* Remove the attribute, and call this function once more: */
+              elmnt.removeAttribute("w3-include-html");
+              includeHTML();
+            }
+          }
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          /* Exit the function: */
+          return;
+        }
+      }
+    }
 
+    includeHTML();
 
  });
