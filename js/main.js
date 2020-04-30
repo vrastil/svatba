@@ -177,5 +177,10 @@ $(document).ready(function(){
     }
 
     includeHTML();
-
+    $('#js-lightgallery').lightGallery({
+      thumbnail:true,
+      animateThumb: false,
+      showThumbByDefault: false,
+      // selector: '.lg-img',
+  }); 
  });
