@@ -101,60 +101,70 @@ $(document).ready(function(){
       }
     });
 
-    // -------   Mail Send
-    //update this with your $form selector
-    var form_id = "myForm";
-    var $form = $("#" + form_id);
-    var sendButton = $('.submit-btn'); // submit button
-    var data = {
-        "access_token": "le9z6m3aagiqqwz17yqpi0vt"
-    };
+  // -------   Mail Send
+  //update this with your $form selector
+  var form_id = "myForm";
+  var $form = $("#" + form_id);
+  var sendButton = $('.submit-btn'); // submit button
+  var data = {
+      "access_token": "le9z6m3aagiqqwz17yqpi0vt"
+  };
 
-    function onSuccess(data) {
-      $form .trigger('reset'); // reset form
-      sendButton.text('Posláno');
+  function onSuccess(data) {
+    $form .trigger('reset'); // reset form
+    sendButton.text('Posláno');
+  }
+
+  function onError(error) {
+    console.log(error)
+    sendButton.text('Nastala chyba');
+  }
+
+
+  function send() {
+
+    if ($form.get(0).reportValidity()){
+      sendButton.text('Posílám...');
+      sendButton.prop('disabled',true);
+
+      var subject = "[web] Potvrzeni svatby";
+      var message = $form .serialize(); // serialize form data;
+
+      data['subject'] = subject;
+      data['text'] = message;
+
+      $.post('https://postmail.invotes.com/send',
+          data,
+          onSuccess
+      ).fail(onError);
     }
 
-    function onError(error) {
-      console.log(error)
-      sendButton.text('Nastala chyba');
-    }
+    return false;
+  }
 
+  sendButton.on('click', send);
+  $form.submit(function( event ) {
+      event.preventDefault();
+  });
 
-    function send() {
+  // include and load lightgallery
+  const $lightgallery = $('#js-lightgallery');
+  $lightgallery.load($lightgallery.attr("src"), () => {
+    $lightgallery.lightGallery({
+      thumbnail: true,
+      animateThumb: true,
+      showThumbByDefault: true,
+      exThumbImage: 'data-exthumbimage',
+      toogleThumb: true,
 
-      if ($form.get(0).reportValidity()){
-        sendButton.text('Posílám...');
-        sendButton.prop('disabled',true);
-  
-        var subject = "[web] Potvrzeni svatby";
-        var message = $form .serialize(); // serialize form data;
-  
-        data['subject'] = subject;
-        data['text'] = message;
-  
-        $.post('https://postmail.invotes.com/send',
-            data,
-            onSuccess
-        ).fail(onError);
-      }
-
-      return false;
-    }
-
-    sendButton.on('click', send);
-    $form.submit(function( event ) {
-        event.preventDefault();
     });
+  });
 
-    // include and load lightgallery
-    const lightgallery = $('#js-lightgallery');
-    lightgallery.load(lightgallery.attr("src"), () => {
-      lightgallery.lightGallery({
-        thumbnail:true,
-        animateThumb: false,
-        showThumbByDefault: false,
-        // selector: '.lg-img',
-      });
-    });
- });
+  // hide/show header menu when opening/closing lightgallery
+  $lightgallery.on('onBeforeOpen.lg',function(e){
+    $('header').css("position", "static")
+  });
+  $lightgallery.on('onCloseAfter.lg',function(e){
+    $('header').css("position", "fixed")
+  });
+});
