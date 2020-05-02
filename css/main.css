@@ -2252,6 +2252,11 @@ header {
   width: auto;
 }
 
+.owl-carousel {
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  }
+  
 .About-area .active-feature-carousel {
   -moz-box-shadow: 0px 21px 0px -10px #fbd2f480, 0px 33px 0px -16px #fbd2f480;
   -webkit-box-shadow: 0px 21px 0px -10px #fbd2f480, 0px 33px 0px -16px #fbd2f480;
