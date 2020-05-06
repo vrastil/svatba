@@ -129,6 +129,11 @@ $(document).ready(function(){
 
       var subject = "[web] Potvrzeni svatby";
       var message = $form .serialize(); // serialize form data;
+      var myList = $("li.selected").map(function() {
+        return $(this).text();
+      }).get();
+      message += "\n" + myList[0]
+      message += "\n" + myList[1]
 
       data['subject'] = subject;
       data['text'] = message;
