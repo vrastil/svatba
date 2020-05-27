@@ -89,25 +89,43 @@ def print_get_drink_distr(data):
     beerish = len([x for x in data if "Asi pivo, ale když bude víno tak ochutnám." == x["drink"]])
     whinish = len([x for x in data if "Asi víno, pivo jen k masu." == x["drink"]])
 
+    # check
+    if alko_reduced != (white + red + beer + beerish + whinish):
+        print(f"ERROR (check 1/3): alko_reduced != (white + red + beer + beerish + whinish)\n\t{alko_reduced} != {(white + red + beer + beerish + whinish)}")
+
     # proccess
     whine = red + white
-    red += red / whine * whinish * 0.7
-    white += white / whine * whinish * 0.7
+    rw = red / whine
+    ww = white / whine
+    red += rw * whinish * 0.7
+    white += ww * whinish * 0.7
     beer += whinish*0.3
 
+    # check
+    if alko_reduced != (white + red + beer + beerish ):
+        print(f"ERROR (check 2/3): alko_reduced != (white + red + beer + beerish)\n\t{alko_reduced} != {(white + red + beer + beerish )}")
+
     beer += beerish * 0.7
-    red += red / whine * beerish * 0.3
-    white += white / whine * beerish * 0.3
+    red += rw * beerish * 0.3
+    white += ww * beerish * 0.3
+    
+    # check
+    if alko_reduced != (white + red + beer ):
+        print(f"ERROR (check 3/3): alko_reduced != (white + red + beer)\n\t{alko_reduced} != {(white + red + beer )}")
+    
+    # abs
+    all_p_us = 55
+    all_p_us_al = all_p_us*alko/all_drink
 
     # print
     display(Markdown('---'))
     print("Rozpis piti:\n")
-    print(f"Nealko: {100*nealko/all_drink:.0f}%")
-    print(f"Alko: {100*alko/all_drink:.0f}%")
-    print(f"Cokoli: {100*either/alko:.0f}%")
-    print(f"Bile: {100*white/alko_reduced:.0f}%")
-    print(f"Cervene: {100*red/alko_reduced:.0f}%")
-    print(f"Pivo: {100*beer/alko_reduced:.0f}%")
+    print(f"Nealko: {100*nealko/all_drink:.0f}% z celkem {all_p_us:.0f} je {nealko/all_drink*all_p_us:.0f}")
+    print(f"Alko: {100*alko/all_drink:.0f}% z celkem {all_p_us:.0f} je {alko/all_drink*all_p_us:.0f}")
+    print(f"Cokoli: {100*either/alko:.0f}% z celkem {all_p_us_al:.0f} je {either/alko*all_p_us_al:.0f}")
+    print(f"Bile: {100*white/alko_reduced:.0f}% z celkem {all_p_us_al:.0f} je {white/alko_reduced*all_p_us_al:.0f}")
+    print(f"Cervene: {100*red/alko_reduced:.0f}% z celkem {all_p_us_al:.0f} je {red/alko_reduced*all_p_us_al:.0f}")
+    print(f"Pivo: {100*beer/alko_reduced:.0f}% z celkem {all_p_us_al:.0f} je {beer/alko_reduced*all_p_us_al:.0f}")
 
 def main():
     xlsx_file = "/mnt/c/Users/micha/Dropbox/Svatba/Hoste/odpovedi.xlsx"
