@@ -76,6 +76,39 @@ def print_refreshment(data):
     print("Jidlo:\n")
     print_get(data, key="food")
 
+def print_get_drink_distr(data):
+    # get raw
+    all_drink = len(data)
+    nealko = len([x for x in data if "Alkohol nepiju" in x["drink"]])
+    alko = all_drink - nealko
+    either = len([x for x in data if "Hrňte to do mě všechno, je mi to fuk." == x["drink"]])
+    alko_reduced = alko - either
+    white = len([x for x in data if "Víno bílé, nic jiného do mě nedostanete." == x["drink"]])
+    red = len([x for x in data if "Víno červené, nic jiného do mě nedostanete." == x["drink"]])
+    beer = len([x for x in data if "Pouze pivo, nic jiného do mě nedostanete." == x["drink"]])
+    beerish = len([x for x in data if "Asi pivo, ale když bude víno tak ochutnám." == x["drink"]])
+    whinish = len([x for x in data if "Asi víno, pivo jen k masu." == x["drink"]])
+
+    # proccess
+    whine = red + white
+    red += red / whine * whinish * 0.7
+    white += white / whine * whinish * 0.7
+    beer += whinish*0.3
+
+    beer += beerish * 0.7
+    red += red / whine * beerish * 0.3
+    white += white / whine * beerish * 0.3
+
+    # print
+    display(Markdown('---'))
+    print("Rozpis piti:\n")
+    print(f"Nealko: {100*nealko/all_drink:.0f}%")
+    print(f"Alko: {100*alko/all_drink:.0f}%")
+    print(f"Cokoli: {100*either/alko:.0f}%")
+    print(f"Bile: {100*white/alko_reduced:.0f}%")
+    print(f"Cervene: {100*red/alko_reduced:.0f}%")
+    print(f"Pivo: {100*beer/alko_reduced:.0f}%")
+
 def main():
     xlsx_file = "/mnt/c/Users/micha/Dropbox/Svatba/Hoste/odpovedi.xlsx"
     data = load_xlsx(xlsx_file)
@@ -83,5 +116,6 @@ def main():
     # get info
     print_msg(data)
     print_refreshment(data)
+    print_get_drink_distr(data)
 
     return data
