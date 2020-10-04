@@ -1,13 +1,13 @@
 // Initialize and add the map
-function initMap() {
-  // The location of spejchar
-  var spejchar = {lat: 50.063100, lng: 14.597043};
-  // The map, centered at spejchar
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 12, center: spejchar});
-  // The marker, positioned at spejchar
-  var marker = new google.maps.Marker({position: spejchar, map: map});
-}
+// function initMap() {
+//   // The location of spejchar
+//   var spejchar = {lat: 50.063100, lng: 14.597043};
+//   // The map, centered at spejchar
+//   var map = new google.maps.Map(
+//       document.getElementById('map'), {zoom: 12, center: spejchar});
+//   // The marker, positioned at spejchar
+//   var marker = new google.maps.Marker({position: spejchar, map: map});
+// }
 
 $(document).ready(function(){
 	"use strict";
@@ -164,12 +164,29 @@ $(document).ready(function(){
 
     });
   });
+  const $lightgallery_g = $('#js-lightgallery-gifts');
+  $lightgallery_g.load($lightgallery_g.attr("src"), () => {
+    $lightgallery_g.lightGallery({
+      thumbnail: true,
+      animateThumb: true,
+      showThumbByDefault: true,
+      exThumbImage: 'data-exthumbimage',
+      toogleThumb: true,
+
+    });
+  });
 
   // hide/show header menu when opening/closing lightgallery
   $lightgallery.on('onBeforeOpen.lg',function(e){
     $('header').css("position", "static")
   });
   $lightgallery.on('onCloseAfter.lg',function(e){
+    $('header').css("position", "fixed")
+  });
+  $lightgallery_g.on('onBeforeOpen.lg',function(e){
+    $('header').css("position", "static")
+  });
+  $lightgallery_g.on('onCloseAfter.lg',function(e){
     $('header').css("position", "fixed")
   });
 });
